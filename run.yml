@@ -1,0 +1,6 @@
+- name: Run Stream
+        env:
+          NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
+        run: |
+          python app.py &
+          sleep 21600 # Будет работать 6 часов (максимум для Гитхаба)
