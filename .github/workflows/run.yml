@@ -1,4 +1,4 @@
-name: Stream Server
+name: test
 on: [push, workflow_dispatch]
 jobs:
   build:
@@ -9,14 +9,12 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
-      - name: Install dependencies
+      - name: Install
         run: |
-          sudo apt-get update && sudo apt-get install -y ffmpeg
           pip install flask pyngrok
       - name: Run Stream
         env:
           NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
         run: |
-          # Запускаем и ждем 6 часов
           python app.py &
           sleep 21600
