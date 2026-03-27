@@ -1,6 +1,22 @@
-- name: Run Stream
+name: Stream Server
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+          pip install flask pyngrok
+      - name: Run Stream
         env:
           NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
         run: |
+          # Запускаем и ждем 6 часов
           python app.py &
-          sleep 21600 # Будет работать 6 часов (максимум для Гитхаба)
+          sleep 21600
